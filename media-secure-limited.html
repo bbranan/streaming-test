@@ -1,0 +1,36 @@
+<html>
+
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+      function enableAV() {
+        var avtag = document.getElementById('video1');
+
+         // Using hls.js for display, see: https://video-dev.github.io/hls.js/
+        if(Hls.isSupported()) {
+          var hls = new Hls();
+          hls.loadSource(avtag.src);
+          hls.attachMedia(avtag);
+          hls.on(Hls.Events.MANIFEST_PARSED,function() {
+            avtag.play();
+          });
+       } else if (avtag.canPlayType('application/vnd.apple.mpegurl')) {
+         avtag.addEventListener('canplay',function() {
+           avtag.play();
+         });
+       }
+     }
+    </script>
+
+    <title>Video playback demo - using hls.js</title>
+  </head>
+
+  <body onload="enableAV()">
+    <center>
+        <video id="video1" src="https://dxmj48a2eyi5f.cloudfront.net/wildlife-playlist.m3u8" controls></video>
+    </center>
+  </body>
+
+</html>
+
+
